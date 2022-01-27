@@ -78,7 +78,10 @@ class RegisterController extends Controller
             'user_name'=>$data['user_name'],
             'password' => Hash::make($data['password']),
         ]);
-
+        $verifyUser = VerifyUser::create([
+            'user_id' => $user->id,
+            'token' =>  random_int(100000, 999999)
+        ]);
         \Mail::to($user->email)->send(new VerifyMail($user));
 
         return $user;
