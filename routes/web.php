@@ -25,3 +25,5 @@ Route::get('/users/invite', 'App\Http\Controllers\UsersController@invite_view')-
 Route::post('/users/invite', 'App\Http\Controllers\UsersController@process_invites')->name('process_invite');
 Route::get('/registration/{token}', 'App\Http\Controllers\UsersController@registration_view')->name('registration');
 Route::POST('/registration', 'App\Http\Controllers\Auth\RegisterController@register')->name('accept');
+
+Route::get('/user/verify/{token}', 'App\Http\Controllers\Auth\RegisterController@verifyUser');
