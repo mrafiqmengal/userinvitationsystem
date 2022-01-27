@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invite;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Str;
 use Validator;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('registration_view');
+    }
     public function index()
     {
         $users = User::all();
@@ -48,5 +54,12 @@ class UsersController extends Controller
         );
 
         return redirect('/users')->with('success', 'The Invite has been sent successfully');
+    }
+
+
+    public function registration_view($token)
+    {
+        $invite = Invite::where('token', $token)->first();
+        return view('auth.register',['invite' => $invite]);
     }
 }

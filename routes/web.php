@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes(['register'=>false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/users', 'UsersController@index')->name('users');
-Route::get('/users/invite', 'UsersController@invite_view')->name('invite_view');
-Route::post('/users/invite', 'UsersController@process_invites')->name('process_invite');
+Route::get('/users', 'App\Http\Controllers\UsersController@index')->name('users');
+Route::get('/users/invite', 'App\Http\Controllers\UsersController@invite_view')->name('invite_view');
+Route::post('/users/invite', 'App\Http\Controllers\UsersController@process_invites')->name('process_invite');
+Route::get('/registration/{token}', 'UsersController@registration_view')->name('registration');
+Route::POST('/registration', 'App\Http\Controllers\Auth\RegisterController@register')->name('accept');
