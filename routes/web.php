@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register'=>false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/users', 'UsersController@index')->name('users');
+Route::get('/users/invite', 'UsersController@invite_view')->name('invite_view');
+Route::post('/users/invite', 'UsersController@process_invites')->name('process_invite');
