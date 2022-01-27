@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Invite;
 use App\Models\User;
+use App\Notifications\InviteNotification;
 use Illuminate\Http\Request;
+use Notification;
 use Str;
+use URL;
 use Validator;
 
 class UsersController extends Controller
@@ -52,7 +55,7 @@ class UsersController extends Controller
 
             'registration', now()->addMinutes(300), ['token' => $token]
         );
-
+        Notification::route('mail', $request->input('email'))->notify(new InviteNotification($url));
         return redirect('/users')->with('success', 'The Invite has been sent successfully');
     }
 
