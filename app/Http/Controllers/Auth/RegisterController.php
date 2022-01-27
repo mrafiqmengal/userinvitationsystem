@@ -10,6 +10,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -90,7 +91,10 @@ class RegisterController extends Controller
 
     public function verifyUser($token)
     {
+        $token = request()->verifyusertoken;
         $verifyUser = VerifyUser::where('token', $token)->first();
+
+
         if(isset($verifyUser) ){
             $user = $verifyUser->user;
             if(!$user->verified) {

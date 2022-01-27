@@ -16,7 +16,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except('registration_view');
+        $this->middleware('auth')->except(['registration_view','verifyform']);
     }
     public function index()
     {
@@ -64,5 +64,11 @@ class UsersController extends Controller
     {
         $invite = Invite::where('token', $token)->first();
         return view('auth.register',['invite' => $invite]);
+    }
+
+    public function verifyform($token)
+    {
+        $invite = Invite::where('token', $token)->first();
+        return view('users.verifyform');
     }
 }
